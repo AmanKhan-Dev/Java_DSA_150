@@ -1,99 +1,72 @@
 package CompetativeCodes;
 
-import java.util.Random;
+
 import java.util.Scanner;
 
 public class Minesweppar {
-    private static final int SIZE = 4;
-    private static final char MINE = '*';
-    private static final char UNREVEALED = '-';
-    private static final char[][] board = new char[SIZE][SIZE];
-    private static final boolean[][] mines = new boolean[SIZE][SIZE];
-
     public static void main(String[] args) {
-        initializeBoard();
-        placeMines(3); // Placing 3 mines randomly
-        displayBoard();
-        playGame();
-    }
-
-    private static void initializeBoard() {
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j++) {
-                board[i][j] = UNREVEALED;
-            }
+        Scanner sc  =  new Scanner(System.in);
+        System.out.print("Enter no. of rows : ");
+        int rows = sc.nextInt();
+        System.out.print("Enter no. of columns : ");
+        int columns = sc.nextInt();
+        sc.nextLine();
+        char Board[][] = new char[rows][columns];
+        System.out.println("Enter the board row by row (use * for the mine and '.' for the safe step):");
+        for (int i = 0; i < rows; i++) {
+            String line = sc.nextLine();
+            Board[i] = line.toCharArray();
         }
+        System.out.println("The Generated Result is : ");
+       char finalResult[][] = Solution(Board);
+       printBoard(finalResult);
+
     }
+    public static char[][] Solution(char[][] Board){
 
-    private static void placeMines(int mineCount) {
-        Random random = new Random();
-        int count = 0;
-        while (count < mineCount) {
-            int x = random.nextInt(SIZE);
-            int y = random.nextInt(SIZE);
-            if (!mines[x][y]) {
-                mines[x][y] = true;
-                count++;
-            }
-        }
-    }
+        int rows = Board.length;
+        int colums = Board[0].length;
 
-    private static void displayBoard() {
-        System.out.println("Current Board:");
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j++) {
-                System.out.print(board[i][j] + " ");
-            }
-            System.out.println();
-        }
-    }
+        char resultBoard [][] = new char[rows][colums];
 
-    private static void playGame() {
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            System.out.print("Enter row and column (0-3) to reveal: ");
-            int row = scanner.nextInt();
-            int col = scanner.nextInt();
+        int directRows[] = {-1, -1, -1, 0, 0, 1, 1, 1};
+        int directCols[] = {-1, 0, 1, -1, 1, -1, 0, 1};
 
-            if (row < 0 || row >= SIZE || col < 0 || col >= SIZE) {
-                System.out.println("Invalid input! Try again.");
-                continue;
-            }
+        for (int i = 0; i <rows ; i++) {
+            for (int j = 0; j <colums ; j++) {
 
-            if (mines[row][col]) {
-                System.out.println("Game Over! You hit a mine.");
-                revealMines();
-                displayBoard();
-                break;
-            } else {
-                board[row][col] = (char) ('0' + countAdjacentMines(row, col));
-                displayBoard();
-            }
-        }
-        scanner.close();
-    }
+                if (Board[i][j]=='*'){
+                 resultBoard[i][j] = '*';
+                }
 
-    private static void revealMines() {
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j++) {
-                if (mines[i][j]) {
-                    board[i][j] = MINE;
+                else {
+                    int mine =0;
+                    for (int k = 0; k <8 ; k++) {
+
+                        int moveI = i + directRows[k];
+                        int moveJ =  j + directCols[k];
+
+                        if (moveI>=0 && moveI<rows && moveJ>=0&& moveJ<colums){
+                            if (Board[moveI][moveJ]=='*'){
+                                mine++;
+                            }
+                        }
+
+                    }
+                    resultBoard[i][j] = (char) (mine + '0');
+
+
                 }
             }
+
+        }
+        return resultBoard;
+    }
+    public static void printBoard(char[][] Board) {
+        for (char[] row : Board) {
+            System.out.println(new String(row));
         }
     }
 
-    private static int countAdjacentMines(int row, int col) {
-        int count = 0;
-        for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
-                int newRow = row + i;
-                int newCol = col + j;
-                if (newRow >= 0 && newRow < SIZE && newCol >= 0 && newCol < SIZE && mines[newRow][newCol]) {
-                    count++;
-                }
-            }
-        }
-        return count;
-    }
 }
+
