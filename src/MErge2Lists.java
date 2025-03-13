@@ -1,55 +1,68 @@
-
 public class MErge2Lists {
     public static void main(String[] args) {
-        ListNode list1 = new ListNode(1);
-        list1.next = new ListNode(3);
-        list1.next.next = new ListNode(5);
+        MErge2Lists merge2Lists = new MErge2Lists();
 
-        ListNode list2 = new ListNode(2);
-        list2.next = new ListNode(4);
-        list2.next.next = new ListNode(6);
-        ListNode mergedHead = newMergedList(list1, list2);
+        // Creating two sorted linked lists
+        ListNode l1 = new ListNode(1, new ListNode(3, new ListNode(5)));
+        ListNode l2 = new ListNode(2, new ListNode(4, new ListNode(6)));
 
+        // Merging the lists
+        ListNode mergedList = merge2Lists.newMergedList(l1, l2);
 
-        printList(mergedHead);
+        merge2Lists.printList(mergedList);
     }
 
-    public static ListNode newMergedList(ListNode l1, ListNode l2) {
-        ListNode current = new ListNode(-1);
 
+    public ListNode newMergedList(ListNode l1, ListNode l2) {
+        ListNode returnNode = new ListNode(-1);
+        ListNode headNode = returnNode;
 
         while (l1 != null && l2 != null) {
-            if (l1.val > l2.val) {
-                current.next = l1;
+            if (l1.val <= l2.val) {
+                returnNode.next = l1;
                 l1 = l1.next;
             } else {
-                current.next = l2;
+                returnNode.next = l2;
                 l2 = l2.next;
             }
-            current = current.next;
-
+            returnNode = returnNode.next;
         }
 
 
-        return current;
+        if (l1 != null) {
+            returnNode.next = l1;
+        } else {
+            returnNode.next = l2;
+        }
 
+        return headNode.next;
     }
 
-    public static void printList(ListNode head) {
-        while (head != null) {
-            System.out.print(head.val + " -> ");
-            head = head.next;
+
+    public void printList(ListNode head) {
+        ListNode current = head;
+        while (current != null) {
+            System.out.print(current.val + " -> ");
+            current = current.next;
         }
         System.out.println("null");
     }
 
-    class ListNodeN {
-        int val;
-        ListNodeN next;
 
-        ListNodeN(int val) {
+    static class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode() {
+        }
+
+        ListNode(int val) {
             this.val = val;
-            this.next = null;
+        }
+
+        ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
         }
     }
 }
