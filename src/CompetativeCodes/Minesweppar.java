@@ -5,68 +5,60 @@ import java.util.Scanner;
 
 public class Minesweppar {
     public static void main(String[] args) {
-        Scanner sc  =  new Scanner(System.in);
-        System.out.print("Enter no. of rows : ");
-        int rows = sc.nextInt();
-        System.out.print("Enter no. of columns : ");
-        int columns = sc.nextInt();
-        sc.nextLine();
-        char Board[][] = new char[rows][columns];
-        System.out.println("Enter the board row by row (use * for the mine and '.' for the safe step):");
-        for (int i = 0; i < rows; i++) {
-            String line = sc.nextLine();
-            Board[i] = line.toCharArray();
-        }
-        System.out.println("The Generated Result is : ");
-       char finalResult[][] = Solution(Board);
-       printBoard(finalResult);
+        Scanner scanner = new Scanner(System.in);
+        int fieldNumber = 1;
 
-    }
-    public static char[][] Solution(char[][] Board){
+        while (true) {
+            int rows = scanner.nextInt();
+            int cols = scanner.nextInt();
 
-        int rows = Board.length;
-        int colums = Board[0].length;
+            if (rows == 0 && cols == 0) break; // Stop when 0 0 is encountered
 
-        char resultBoard [][] = new char[rows][colums];
+            char[][] grid = new char[rows][cols];
+            int[][] minesCount = new int[rows][cols];
 
-        int directRows[] = {-1, -1, -1, 0, 0, 1, 1, 1};
-        int directCols[] = {-1, 0, 1, -1, 1, -1, 0, 1};
+            // Reading the input grid
+            for (int i = 0; i < rows; i++) {
+                grid[i] = scanner.next().toCharArray();
+            }
 
-        for (int i = 0; i <rows ; i++) {
-            for (int j = 0; j <colums ; j++) {
+            // Directions for 8 neighboring cells
+            int[] dx = {-1, -1, -1, 0, 0, 1, 1, 1};
+            int[] dy = {-1, 0, 1, -1, 1, -1, 0, 1};
 
-                if (Board[i][j]=='*'){
-                 resultBoard[i][j] = '*';
-                }
-
-                else {
-                    int mine =0;
-                    for (int k = 0; k <8 ; k++) {
-
-                        int moveI = i + directRows[k];
-                        int moveJ =  j + directCols[k];
-
-                        if (moveI>=0 && moveI<rows && moveJ>=0&& moveJ<colums){
-                            if (Board[moveI][moveJ]=='*'){
-                                mine++;
+            // Processing the grid
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < cols; j++) {
+                    if (grid[i][j] == '*') {
+                        // Increment surrounding cells' mine count
+                        for (int d = 0; d < 8; d++) {
+                            int ni = i + dx[d];
+                            int nj = j + dy[d];
+                            if (ni >= 0 && ni < rows && nj >= 0 && nj < cols && grid[ni][nj] != '*') {
+                                minesCount[ni][nj]++;
                             }
                         }
-
                     }
-                    resultBoard[i][j] = (char) (mine + '0');
-
-
                 }
             }
 
-        }
-        return resultBoard;
-    }
-    public static void printBoard(char[][] Board) {
-        for (char[] row : Board) {
-            System.out.println(new String(row));
-        }
-    }
+            // Printing the result
+            if (fieldNumber > 1) System.out.println(); // Separate multiple test cases
+            System.out.println("Field #" + fieldNumber + ":");
 
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < cols; j++) {
+                    if (grid[i][j] == '*') {
+                        System.out.print('*');
+                    } else {
+                        System.out.print(minesCount[i][j]);
+                    }
+                }
+                System.out.println();
+            }
+
+            fieldNumber++;
+        }
+        scanner.close();
+    }
 }
-
