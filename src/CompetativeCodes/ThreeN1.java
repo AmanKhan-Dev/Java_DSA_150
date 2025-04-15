@@ -11,6 +11,7 @@ public class ThreeN1 {
             System.out.println(i + " " + j + " " + solution(i, j));
         }
         sc.close();
+
     }
 
     public static int solution(int i, int j) {
