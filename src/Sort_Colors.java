@@ -7,7 +7,7 @@ public class Sort_Colors {
         int nums[] = {2, 0, 2, 1, 1, 0};
         sortingColors(nums);
 
-        // Print the sorted array
+
         for (int num : nums) {
             System.out.print(num + " ");
         }
@@ -22,6 +22,7 @@ public class Sort_Colors {
                 count0++;
             } else if (nums[i] == 1) {
                 count1++;
+
             }
             else if (nums[i] == 2) {
                 count2++;
