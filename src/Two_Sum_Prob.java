@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Two_Sum_Prob {
@@ -14,6 +15,7 @@ public class Two_Sum_Prob {
 
 
         HashMap<Integer, Integer> myMap = new HashMap<>();
+        ArrayList<Integer> newInt = new ArrayList<>();
 
 
         for (int i = 0; i < nums.length; i++) {
