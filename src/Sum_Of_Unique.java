@@ -7,6 +7,7 @@ public class Sum_Of_Unique {
     public static void main(String[] args) {
 
 
+
         int nums[] = {1,3,2,3,2,4,4,5,5,5};
         System.out.println(sumOfUniques(nums));
 

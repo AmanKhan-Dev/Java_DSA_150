@@ -3,7 +3,7 @@ package TCS_NQT;
 public class Prior_Element {
     public static void main(String[] args) {
 
-        int arr[] = {3, 4, 5, 8, 9};
+        int arr[] = {7,4,8,2,9};
         System.out.println(Solution(arr));
 
     }
