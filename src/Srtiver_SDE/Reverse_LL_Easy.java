@@ -28,10 +28,10 @@ public class Reverse_LL_Easy {
         ListNode current = head;
 
         while (current != null) {
-            ListNode nextTemp = current.next; // store next node
-            current.next = prev;              // reverse pointer
-            prev = current;                   // move prev forward
-            current = nextTemp;               // move current forward
+            ListNode nextTemp = current.next;
+            current.next = prev;
+            prev = current;
+            current = nextTemp;
         }
 
         return prev; // prev will be the new head
