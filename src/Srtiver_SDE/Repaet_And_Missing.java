@@ -13,7 +13,7 @@ public class Repaet_And_Missing {
     }
 
 
-    public static void solution(int A[]){
+    public  static int []  solution(int A[]){
         int repeat = 0;
         int missing = 0;
         Arrays.sort(A);
@@ -28,9 +28,11 @@ public class Repaet_And_Missing {
 
         }
 
-        System.out.println("A = "+repeat);
-        System.out.println("B = "+missing);
+  
 
+        int solution[] = { repeat,missing};
+
+        return solution;
 
 
 
