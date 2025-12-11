@@ -1,33 +1,53 @@
-//package Srtiver_SDE;
-//
-//import java.util.HashSet;
-//
-//public class Merge_Intervals {
-//    public static void main(String[] args) {
-//
-//    }
-//    public int[][] merge(int[][] intervals) {
-//        HashSet<Integer> hashSet = new HashSet<>();
-//        int rows = intervals.length;
-//        int cols = intervals[0].length;
-//
-//
-//        for (int i = 0; i <rows ; i++) {
-//            for (int j = 0; j <cols ; j++) {
-//
-//                int valueToAdd = intervals[i][j];
-//                hashSet.add(valueToAdd);
-//
-//            }
-//        }
-//
-//        for (int i = 1; i <hashSet.size()-1 ; i++) {
-//
-//            if(hashSet.)
-//
-//
-//        }
-//
-//
-//    }
-//}
+package Srtiver_SDE;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+
+public class Merge_Intervals {
+   public static void main(String[] args) {
+
+    int intervals[][] = {
+
+{1,3},
+{2,6},
+{8,10},
+{15,18}
+
+
+    };
+    merge(intervals);
+
+
+
+
+   }
+   public static void merge(int[][] intervals) {
+     ArrayList <Integer> newArrayList= new ArrayList<>();
+
+
+
+     for (int i = 0; i < intervals.length; i++) {
+        for (int j = 0; j < intervals[i].length; j++) {
+
+            if (intervals[i][j+1]> intervals[i+1][j]) {
+
+                newArrayList.add(intervals[i][j]);
+                newArrayList.add(intervals[i+1][j+1]);
+
+                
+            }
+
+            else{
+                     newArrayList.add(intervals[i][j]);
+                newArrayList.add(intervals[i][j+1]);
+            }
+            
+
+
+        }
+        
+     }
+     System.out.println(newArrayList);
+
+   }
+}
